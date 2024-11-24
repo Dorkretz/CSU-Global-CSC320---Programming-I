@@ -1,0 +1,17 @@
+public class MOD1 {
+    public static void main(String[] args) {
+        // Define variables
+        String FirstName = "Bob";
+        String LastName = "Smith";
+        String StreetAddress = "838 Main Street";
+        String City = "Austin";
+        String ZipCode = "77301";
+
+        // Print each piece of information
+        System.out.println(FirstName);
+        System.out.println(LastName);
+        System.out.println(StreetAddress);
+        System.out.println(City);
+        System.out.println(ZipCode);
+    }
+}
