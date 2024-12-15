@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class MOD5 {
+    public static void main(String[] args) {
+        ArrayList<String> days = new ArrayList<>();
+        ArrayList<Double> temperatures = new ArrayList<>();
+
+        // ArrayLists data
+        days.add("Monday");
+        days.add("Tuesday");
+        days.add("Wednesday");
+        days.add("Thursday");
+        days.add("Friday");
+        days.add("Saturday");
+        days.add("Sunday");
+
+        temperatures.add(77.4);
+        temperatures.add(81.5);
+        temperatures.add(66.0);
+        temperatures.add(94.8);
+        temperatures.add(83.2);
+        temperatures.add(37.0);
+        temperatures.add(101.6);
+
+
+        Scanner scanner = new Scanner(System.in);
+        // User input
+        System.out.print("Enter a day of the week or 'all days': ");
+        String input = scanner.nextLine().toLowerCase();
+
+        // Process the input and displays the output
+        if (input.equals("all days")) {
+            // Display temperatures for each day and the weekly average
+            for (int i = 0; i < days.size(); i++) {
+                System.out.println(days.get(i) + ": " + temperatures.get(i) + "°F");
+            }
+
+            // Calculate and display the weekly average
+            double sum = 0;
+            for (double temp : temperatures) {
+                sum += temp;
+            }
+            double average = sum / temperatures.size();
+            System.out.println("Weekly Average Temperature: " + average + "°F");
+        } else {
+            // Find the index of the specified day
+            int index = days.indexOf(input.substring(0, 1).toUpperCase() + input.substring(1));
+
+            // If the day is found, display its temperature
+            if (index != -1) {
+                System.out.println(days.get(index) + ": " + temperatures.get(index) + "°F");
+            } else {
+                System.out.println("Invalid day entered.");
+            }
+        }
+
+    }
+}
