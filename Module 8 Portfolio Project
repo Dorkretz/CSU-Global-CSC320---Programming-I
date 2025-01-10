@@ -1,0 +1,163 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+class Automobile {
+    private String make;
+    private String model;
+    private String color;
+    private int year;
+    private int mileage;
+
+    // Initialize values
+    public Automobile() {
+        this.make = "";
+        this.model = "";
+        this.color = "";
+        this.year = 0;
+        this.mileage = 0;
+    }
+
+    // Constructor
+    public Automobile(String make, String model, String color, int year, int mileage) {
+        this.make = make;
+        this.model = model;
+        this.color = color;
+        this.year = year;
+        this.mileage = mileage;
+    }
+
+    // Adding a new vehicle
+    public String addVehicle(String make, String model, String color, int year, int mileage) {
+        try {
+            this.make = make;
+            this.model = model;
+            this.color = color;
+            this.year = year;
+            this.mileage = mileage;
+            return "Vehicle added successfully!";
+        } catch (Exception e) {
+            return "Failed to add vehicle: " + e.getMessage();
+        }
+    }
+
+    // List vehicle information
+    public String[] listVehicleInfo() {
+        return new String[]{make, model, color, String.valueOf(year), String.valueOf(mileage)};
+    }
+
+    // Remove a vehicle
+    public String removeVehicle() {
+        try {
+            this.make = "";
+            this.model = "";
+            this.color = "";
+            this.year = 0;
+            this.mileage = 0;
+            return "Vehicle removed successfully!";
+        } catch (Exception e) {
+            return "Failed to remove vehicle: " + e.getMessage();
+        }
+    }
+
+    // Updating the vehicle's attributes
+    public String updateVehicle(String make, String model, String color, int year, int mileage) {
+        try {
+            this.make = make;
+            this.model = model;
+            this.color = color;
+            this.year = year;
+            this.mileage = mileage;
+            return "Vehicle updated successfully!";
+        } catch (Exception e) {
+            return "Failed to update vehicle: " + e.getMessage();
+        }
+    }
+}
+
+public class AutomobileInventory {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            Automobile auto = new Automobile();
+
+            // Prompt user for vehicle details
+            System.out.println("Enter the make of the vehicle:");
+            String make = scanner.nextLine();
+
+            System.out.println("Enter the model of the vehicle:");
+            String model = scanner.nextLine();
+
+            System.out.println("Enter the color of the vehicle:");
+            String color = scanner.nextLine();
+
+            System.out.println("Enter the year of the vehicle:");
+            int year = scanner.nextInt();
+
+            System.out.println("Enter the mileage of the vehicle:");
+            int mileage = scanner.nextInt();
+            scanner.nextLine();
+
+            // Add vehicle using user input
+            System.out.println(auto.addVehicle(make, model, color, year, mileage));
+
+            // Display added vehicle details
+            System.out.println("Vehicle Details:");
+            for (String info : auto.listVehicleInfo()) {
+                System.out.println(info);
+            }
+
+            // Ask if the user wants to update the vehicle
+            System.out.println("Do you want to update the vehicle? (Y/N):");
+            String updateResponse = scanner.nextLine();
+
+            if (updateResponse.equalsIgnoreCase("Y")) {
+                System.out.println("Enter new make:");
+                make = scanner.nextLine();
+
+                System.out.println("Enter new model:");
+                model = scanner.nextLine();
+
+                System.out.println("Enter new color:");
+                color = scanner.nextLine();
+
+                System.out.println("Enter new year:");
+                year = scanner.nextInt();
+
+                System.out.println("Enter new mileage:");
+                mileage = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+
+                System.out.println(auto.updateVehicle(make, model, color, year, mileage));
+            }
+
+            // Display updated vehicle details
+            System.out.println("Updated Vehicle Details:");
+            for (String info : auto.listVehicleInfo()) {
+                System.out.println(info);
+            }
+
+            // Ask if the user wants to print to a file
+            System.out.println("Do you want to print the information to a file? (Y/N): ");
+            String response = scanner.nextLine();
+
+            if (response.equalsIgnoreCase("Y")) {
+                try (FileWriter writer = new FileWriter("C:\\Temp\\Autos.txt")) {
+                    for (String info : auto.listVehicleInfo()) {
+                        writer.write(info + "\n");
+                    }
+                    System.out.println("Information printed to C:\\Temp\\Autos.txt");
+                } catch (IOException e) {
+                    System.out.println("Failed to write to file: " + e.getMessage());
+                }
+            } else {
+                System.out.println("File will not be printed.");
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
